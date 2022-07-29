@@ -16,8 +16,9 @@ export const Item = styled.li`
 `;
 
 export const ItemLink = styled(Link)`
-  text-decoration: none;
-  color: #212121;
+  color: #0000ff;
+   &:active {
+    color: #ff0000;
 `;
 
 export const Main = styled.main`
