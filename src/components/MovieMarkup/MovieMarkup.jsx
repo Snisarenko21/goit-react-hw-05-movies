@@ -10,7 +10,11 @@ export const MovieMarkup = ({ item, error }) => {
           <BackLink />
           <Card>
             <img
-              src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w300${poster_path}`
+                  : 'https://www.diabetes.ie/wp-content/uploads/2017/02/no-image-available-250x417.png'
+              }
               alt={original_title}
             />
             <div>

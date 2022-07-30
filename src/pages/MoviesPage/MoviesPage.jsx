@@ -1,8 +1,8 @@
+import { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { getMovieByQuery } from 'services/movies-api';
-import { useSearchParams, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
 import {
   Container,
