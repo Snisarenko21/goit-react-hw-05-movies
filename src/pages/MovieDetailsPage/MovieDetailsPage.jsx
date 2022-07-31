@@ -1,4 +1,4 @@
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMoviesById } from 'services/movies-api';
 import { InfinitySpin } from 'react-loader-spinner';
@@ -20,6 +20,7 @@ const useFetchItem = () => {
         setItem(item);
       } catch (error) {
         setError(error);
+        alert(error.message);
       } finally {
         setLoading(false);
       }
@@ -36,6 +37,7 @@ export default function MovieDetailsPage() {
   return (
     <main>
       {loading && <InfinitySpin color="grey" />}
+      {error && <Navigate to="/" replace />}
       <Container>
         <MovieMarkup item={item} error={error} />
         <AdditionalInformation />
