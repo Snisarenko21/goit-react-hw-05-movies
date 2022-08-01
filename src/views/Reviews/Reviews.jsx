@@ -1,29 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getMovieReviews } from 'services/movies-api';
 import { Text } from './Reviews.styled';
+import { useFetcReviews } from 'hooks/useFetcReviews';
 
-const useFetcReviews = () => {
-  const { itemId } = useParams();
-  const [reviews, setReviews] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchCasts() {
-      try {
-        const reviews = await getMovieReviews(itemId);
-        setReviews(reviews);
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchCasts();
-  }, [itemId]);
-
-  return { reviews, error };
-};
-
-export const Reviews = () => {
+export default function Reviews() {
   const { reviews, error } = useFetcReviews();
 
   return (
@@ -40,4 +18,4 @@ export const Reviews = () => {
       )}
     </div>
   );
-};
+}

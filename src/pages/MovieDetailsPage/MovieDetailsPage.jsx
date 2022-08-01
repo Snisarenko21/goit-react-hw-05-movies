@@ -1,41 +1,15 @@
-import { useParams, Outlet, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getMoviesById } from 'services/movies-api';
+import { Outlet, Navigate } from 'react-router-dom';
+import { useFetchItem } from 'hooks/useFetchItem';
 import { InfinitySpin } from 'react-loader-spinner';
 import { Container } from './MovieDetailsPage.styled';
 import { MovieMarkup } from 'components/MovieMarkup/MovieMarkup';
 import { AdditionalInformation } from 'components/AdditionalInformation/AdditionalInformation';
 
-const useFetchItem = () => {
-  const { itemId } = useParams();
-  const [item, setItem] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchItem() {
-      setLoading(true);
-      try {
-        const item = await getMoviesById(itemId);
-        setItem(item);
-      } catch (error) {
-        setError(error);
-        alert(error.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchItem();
-  }, [itemId]);
-
-  return { item, loading, error };
-};
-
 export default function MovieDetailsPage() {
   const { item, loading, error } = useFetchItem();
 
   return (
-    <main>
+    <>
       {loading && <InfinitySpin color="grey" />}
       {error && <Navigate to="/" replace />}
       <Container>
@@ -43,6 +17,6 @@ export default function MovieDetailsPage() {
         <AdditionalInformation />
         <Outlet />
       </Container>
-    </main>
+    </>
   );
 }

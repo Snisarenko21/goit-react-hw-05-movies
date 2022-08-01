@@ -1,30 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getMovieCast } from 'services/movies-api';
 import { Item, Container, ProfileImage } from './Cast.styled';
+import { useFetchCasts } from 'hooks/useFetchCasts';
 
-const useFetcCasts = () => {
-  const { itemId } = useParams();
-  const [casts, setCasts] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchCasts() {
-      try {
-        const casts = await getMovieCast(itemId);
-        setCasts(casts);
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchCasts();
-  }, [itemId]);
-
-  return { casts, error };
-};
-
-export const Cast = () => {
-  const { casts, error } = useFetcCasts();
+export default function Cast() {
+  const { casts, error } = useFetchCasts();
 
   return (
     <Container>
@@ -50,4 +28,4 @@ export const Cast = () => {
       )}
     </Container>
   );
-};
+}
