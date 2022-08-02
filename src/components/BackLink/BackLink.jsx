@@ -1,15 +1,15 @@
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
-import { GoBack } from './BackLink.styled';
-
-const BackLink = () => {
-  const location = useLocation();
+const BackLink = ({ prevLocation }) => {
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(prevLocation || '/');
+  };
   return (
-    <GoBack to={location?.state?.from ?? '/'}>
+    <button onClick={goBack}>
       <MdOutlineKeyboardBackspace />
       Go back
-    </GoBack>
+    </button>
   );
 };
-
 export default BackLink;

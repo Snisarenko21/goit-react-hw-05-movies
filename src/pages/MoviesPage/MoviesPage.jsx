@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
+import { useFetchMovies } from 'hooks/useFetchMovies';
 import * as yup from 'yup';
-import { getMovieByQuery } from 'services/movies-api';
 import { InfinitySpin } from 'react-loader-spinner';
 import {
   Container,
@@ -29,36 +27,7 @@ const schema = yup.object().shape({
 });
 
 export default function MoviesPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [item, setItem] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const query = searchParams.get('query');
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!query) {
-      return;
-    }
-    async function fetchItem() {
-      setLoading(true);
-      try {
-        const item = await getMovieByQuery(query);
-        setItem(item.results);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchItem();
-  }, [query]);
-
-  const handleSubmit = ({ searchMovies }, { resetForm }) => {
-    setSearchParams({ query: searchMovies });
-    resetForm();
-  };
+  const { handleSubmit, item, loading, error, location } = useFetchMovies();
 
   return (
     <Main>

@@ -13,7 +13,7 @@ export const useFetchCasts = () => {
         const casts = await getMovieCast(itemId);
         setCasts(casts);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       }
     }
     fetchCasts();

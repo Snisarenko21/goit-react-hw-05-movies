@@ -1,13 +1,16 @@
 import { Card, Score, ScoreContainer, Main } from './MovieMarkup.styled';
 import BackLink from 'components/BackLink/BackLink';
+import { useLocation } from 'react-router-dom';
 
 export const MovieMarkup = ({ item, error }) => {
   const { poster_path, original_title, vote_average, overview, genres } = item;
+  const location = useLocation();
+
   return (
     <Main>
       {item.length !== 0 && !error && (
         <>
-          <BackLink />
+          <BackLink prevLocation={location?.state?.from} />
           <Card>
             <img
               src={
